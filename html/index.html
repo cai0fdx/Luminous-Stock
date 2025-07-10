@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Almoxarifado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background: #1e88e5;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #1976d2;
+        }
+        
+        nav button {
+            background: none;
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        nav button:hover {
+            background: #1565c0;
+        }
+        
+        .aba {
+            display: none;
+            padding: 2rem;
+        }
+        
+        .ativa {
+            display: block;
+        }
+        
+        .pedido {
+            background: white;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        button.acao {
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #43a047;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button.acao:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Controle de Almoxarifado</h1>
+    </header>
+    <nav>
+        <button onclick="abrirAba('cliente')">Cliente</button>
+        <button onclick="abrirAba('usuario')">Funcionário</button>
+    </nav>
+
+
+    <section id="cliente" class="aba ativa">
+        <h2>Simulação de Pedido do Cliente</h2>
+        <button class="acao" onclick="criarPedido()">Criar Pedido</button>
+    </section>
+
+    <section id="usuario" class="aba">
+        <h2>Interface do Funcionário</h2>
+        <div id="pedidos"></div>
+    </section>
+
+    <script>
+        let contadorPedidos = 0;
+
+        function abrirAba(abaId) {
+            document.querySelectorAll('.aba').forEach(el => el.classList.remove('ativa'));
+            document.getElementById(abaId).classList.add('ativa');
+        }
+
+        function criarPedido() {
+            contadorPedidos++;
+            const pedido = document.createElement('div');
+            pedido.className = 'pedido';
+            pedido.innerHTML = `
+        <strong>Pedido #${contadorPedidos}</strong><br>
+        Item: Peça ${Math.floor(Math.random() * 10) + 1}<br>
+        <button class="acao" onclick="aceitarPedido(this, ${contadorPedidos})">Aceitar Pedido</button>
+      `;
+            document.getElementById('pedidos').appendChild(pedido);
+        }
+
+        function aceitarPedido(botao, idPedido) {
+            botao.disabled = true;
+            botao.innerText = 'Pedido Aceito';
+
+            // Envia comando para ESP32 (simulado)
+            fetch(`http://192.168.4.1/led?id=${idPedido}`)
+                .then(response => {
+                    if (response.ok) {
+                        alert(`LED do pedido #${idPedido} acionado!`);
+                    } else {
+                        alert("Erro ao comunicar com o ESP32.");
+                    }
+                })
+                .catch(err => {
+                    alert("Falha na conexão com o ESP32.");
+                });
+        }
+    </script>
+</body>
+
+</html>
