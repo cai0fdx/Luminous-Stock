@@ -1,0 +1,105 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #1e88e5;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background: #1976d2;
+}
+
+nav button {
+    background: none;
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+nav button:hover {
+    background: #1565c0;
+}
+
+.aba {
+    display: none;
+    padding: 2rem;
+}
+
+.ativa {
+    display: block;
+}
+
+.pedido {
+    background: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+button.acao {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #43a047;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button.acao:hover {
+    background-color: #388e3c;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(56, 142, 60, 0.6);
+}
+
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.produto {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.produto img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.search-container {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.search-container input {
+    padding: 0.5rem;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+

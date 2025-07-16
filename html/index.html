@@ -5,98 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sistema de Almoxarifado</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background: #1e88e5;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #1976d2;
-        }
-
-        nav button {
-            background: none;
-            color: white;
-            border: none;
-            padding: 1rem;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        nav button:hover {
-            background: #1565c0;
-        }
-
-        .aba {
-            display: none;
-            padding: 2rem;
-        }
-
-        .ativa {
-            display: block;
-        }
-
-        .pedido {
-            background: white;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        button.acao {
-            margin-top: 0.5rem;
-            padding: 0.5rem 1rem;
-            background-color: #43a047;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        button.acao:hover {
-            background-color: #388e3c;
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(56, 142, 60, 0.6);
-        }
-
-        .produtos-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            justify-content: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .produto {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .produto img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/estilo.css">
+    <script src="../js/script.js" defer></script>
 </head>
 
 <body>
@@ -110,33 +20,59 @@
 
     <section id="cliente" class="aba ativa">
         <h2>Catálogo de Produtos</h2>
-        <div class="produtos-container">
-            <div class="produto">
-                <img
-                    src="https://media.istockphoto.com/id/1530845217/pt/foto/hammer-on-white-background.jpg?s=1024x1024&w=is&k=20&c=pyLr6XdztUmZyG5zN6EP6g6kqSyRSQGYEz3urZOoa8c="
-                    alt="Martelo" />
-                <h3>Martelo</h3>
-                <button class="acao" onclick="adicionarPedido('Martelo')">Pedir</button>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Pesquisar produtos..." oninput="filtrarProdutos()" />
+        </div>
+        <div class="produtos-container" id="produtosContainer">
+
+            <div class="produto" data-nome="Alicate Hidráulico">
+                <img src="https://placehold.co/150x150?text=Alicate Hidráulico" alt="Alicate Hidráulico" />
+                <h3>Alicate Hidráulico</h3>
+                <button class="acao" onclick="adicionarPedido('Alicate Hidráulico')">Pedir</button>
             </div>
-            <div class="produto">
-                <img
-                    src="https://placehold.co/150x150?text=Parafuso"
-                    alt="Parafuso" />
-                <h3>Parafuso</h3>
-                <button class="acao" onclick="adicionarPedido('Parafuso')">Pedir</button>
+
+            <div class="produto" data-nome="Concetor para Jampe">
+                <img src="https://placehold.co/150x150?text=Concetor para Jampe" alt="Concetor para Jampe" />
+                <h3>Concetor para Jampe</h3>
+                <button class="acao" onclick="adicionarPedido('Concetor para Jampe')">Pedir</button>
             </div>
-            <div class="produto">
-                <img
-                    src="https://placehold.co/150x150?text=Chave de Fenda"
-                    alt="Chave de Fenda" />
-                <h3>Chave de Fenda</h3>  
-                <button class="acao" onclick="adicionarPedido('Chave de Fenda')">Pedir</button>
+
+            <div class="produto" data-nome="Bastão Tira Pipa">
+                <img src="https://placehold.co/150x150?text=Bastão Tira Pipa" alt="Bastão Tira Pipa" />
+                <h3>Bastão Tira Pipa</h3>
+                <button class="acao" onclick="adicionarPedido('Bastão Tira Pipa de Fenda')">Pedir</button>
             </div>
-            <div class="produto">
-                <img src="https://placehold.co/150x150?text=Trena" alt="Trena" />
-                <h3>Trena</h3>
-                <button class="acao" onclick="adicionarPedido('Trena')">Pedir</button>
+
+            <div class="produto" data-nome="Gancho Universal">
+                <img src="https://placehold.co/150x150?text=Gancho Universal" alt="Gancho Universal" />
+                <h3>Gancho Universal</h3>
+                <button class="acao" onclick="adicionarPedido('Gancho Universal')">Pedir</button>
             </div>
+
+            <div class="produto" data-nome="Cobertura Circular">
+                <img src="https://placehold.co/150x150?text=Cobertura Circular" alt="Cobertura Circular" />
+                <h3>Cobertura Circular</h3>
+                <button class="acao" onclick="adicionarPedido('Cobertura Circular')">Pedir</button>
+            </div>
+
+            <div class="produto" data-nome="Luva Isolante">
+                <img src="https://placehold.co/150x150?text=Luva Isolante" alt="Luva Isolante" />
+                <h3>Luva Isolante</h3>
+                <button class="acao" onclick="adicionarPedido('Luva Isolante')">Pedir</button>
+            </div>
+
+            <div class="produto" data-nome="Bastão podador">
+                <img src="https://placehold.co/150x150?text=Bastão podador" alt="Bastão podador" />
+                <h3>Bastão podador</h3>
+                <button class="acao" onclick="adicionarPedido('Bastão podador')">Pedir</button>
+            </div>
+
+            <div class="produto" data-nome="Locador de Pino">
+                <img src="https://placehold.co/150x150?text=Locador de Pino" alt="Locador de Pino" />
+                <h3>Locador de Pino</h3>
+                <button class="acao" onclick="adicionarPedido('Locador de Pino')">Pedir</button>
+            </div>
+
         </div>
     </section>
 
@@ -147,86 +83,6 @@
             <div id="listaPedidos"></div>
         </div>
     </section>
-
-    <script>
-        let contadorPedidos = 0;
-        let pedidos = [];
-
-        function abrirAba(abaId) {
-            document.querySelectorAll('.aba').forEach(el => el.classList.remove('ativa'));
-            document.getElementById(abaId).classList.add('ativa');
-            if (abaId === 'usuario') {
-                atualizarListaPedidos();
-            }
-        }
-
-        function adicionarPedido(item) {
-            contadorPedidos++;
-            const pedido = {
-                id: contadorPedidos,
-                item: item
-            };
-            pedidos.push(pedido);
-            atualizarListaPedidos();
-        }
-
-        function atualizarListaPedidos() {
-            const listaDiv = document.getElementById('listaPedidos');
-            listaDiv.innerHTML = '';
-
-            pedidos.forEach(pedido => {
-                const pedidoDiv = document.createElement('div');
-                pedidoDiv.className = 'pedido';
-                pedidoDiv.innerHTML = `
-                    <strong>Pedido #${pedido.id}</strong><br>
-                    Item: ${pedido.item}<br>
-                    <button class="acao" onclick="aceitarPedido(${pedido.id})">Aceitar Pedido</button>
-                    <button class="acao" onclick="recusarPedido(${pedido.id})">Recusar Pedido</button>
-                `;
-                listaDiv.appendChild(pedidoDiv);
-            });
-        }
-
-        function aceitarPedido(idPedido) {
-            // Encontra o pedido pelo id
-            const pedidoIndex = pedidos.findIndex(p => p.id === idPedido);
-            if (pedidoIndex === -1) return;
-
-            const pedido = pedidos[pedidoIndex];
-
-            // Enviar para o PHP salvar pedido aceito
-            fetch('salvar_pedido.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'item=' + encodeURIComponent(pedido.item)
-            })
-                .then(response => response.text())
-                .then(data => {
-                    alert('Pedido aceito e salvo no banco: ' + data);
-                })
-                .catch(error => {
-                    alert('Erro ao salvar pedido: ' + error);
-                });
-
-            // Remove o pedido do array e atualiza lista
-            pedidos.splice(pedidoIndex, 1);
-            atualizarListaPedidos();
-
-            // (Opcional) Simula comando para ESP32
-            fetch(`http://192.168.4.1/led?id=${idPedido}`).catch(() => {
-                console.log('Falha na conexão com ESP32 (simulado)');
-            });
-        }
-
-        function recusarPedido(idPedido) {
-            // Remove pedido do array
-            const pedidoIndex = pedidos.findIndex(p => p.id === idPedido);
-            if (pedidoIndex === -1) return;
-
-            pedidos.splice(pedidoIndex, 1);
-            atualizarListaPedidos();
-        }
-    </script>
 </body>
 
 </html>
