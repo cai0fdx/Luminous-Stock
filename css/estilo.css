@@ -168,5 +168,76 @@ button.recusar:focus {
     background-color: #fff;
     outline: none;
 }
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    z-index: 1100;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.menu-btn:hover {
+    color: #90caf9;
+    transform: scale(1.05);
+}
+
+/* Sidebar fixa e colada à esquerda */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px;
+    width: 200px;
+    height: 100%;
+    background-color: #1e88e5; 
+    padding-top: 4rem;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15); 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: left 1.0s ease; 
+    z-index: 1000;
+    border-radius: 8px; 
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebar button {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; 
+}
+
+.sidebar button:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: #90caf9;
+    transform: translateX(5px); 
+}
+.main-content {
+  transition: margin-left 0.4s ease;
+  margin-left: 0; 
+}
+
+.main-content.shifted {
+  margin-left: 200px; 
+}
+.sidebar button i {
+    margin-right: 8px;
+    min-width: 20px; /* para os ícones não mexerem a posição do texto */
+    text-align: center;
+}
 
 

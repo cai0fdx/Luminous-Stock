@@ -1,6 +1,17 @@
 let contadorPedidos = 0;
 let pedidos = [];
 
+const menuBtn = document.querySelector('.menu-btn');
+const sidebar = document.querySelector('.sidebar');
+const mainContent = document.getElementById('mainContent');
+
+menuBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('show');
+  mainContent.classList.toggle('shifted'); // importante
+});
+
+
+
 function abrirAba(abaId) {
     document.querySelectorAll('.aba').forEach(el => el.classList.remove('ativa'));
     document.getElementById(abaId).classList.add('ativa');
@@ -111,4 +122,6 @@ function filtrarProdutos() {
         const nome = produto.getAttribute('data-nome').toLowerCase();
         produto.style.display = nome.includes(filtro) ? '' : 'none';
     });
+
+
 }

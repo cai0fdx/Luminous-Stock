@@ -9,16 +9,20 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script src="../js/script.js" defer></script>
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-<body>
-    <header>
-        <h1>Controle de Almoxarifado</h1>
-    </header>
-    <nav>
-        <button onclick="abrirAba('cliente')">Cliente</button>
-        <button onclick="abrirAba('usuario')">Funcionário</button>
-    </nav>
+<header>
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    <h1>Controle de Almoxarifado</h1>
+</header>
+
+<aside id="sidebar" class="sidebar">
+    <button onclick="abrirAba('cliente')"><i class="fas fa-box"></i> Cliente</button>
+    <button onclick="abrirAba('usuario')"><i class="fas fa-user"></i> Funcionário</button>
+    <button onclick="abrirAba('localização')"><i class="fas fa-map-marker-alt"></i> Local</button>
+</aside>
+
+<div class="main-content" id="mainContent">
 
     <section id="cliente" class="aba ativa">
         <h2>Catálogo de Produtos</h2>
@@ -30,6 +34,7 @@
             <div class="produto" data-nome="Alicate Hidráulico">
                 <img src="https://placehold.co/150x150?text=Alicate Hidráulico" alt="Alicate Hidráulico" />
                 <h3>Alicate Hidráulico</h3>
+                
                 <button class="acao" onclick="adicionarPedido('Alicate Hidráulico',this)">Pedir</button>
             </div>
 
@@ -79,12 +84,25 @@
     </section>
 
     <section id="usuario" class="aba">
-        <h2>Interface do Funcionário</h2>
+        <h2>Pedidos Recebidos:</h2>
         <div id="pedidos">
-            <h3>Pedidos Recebidos:</h3>
             <div id="listaPedidos"></div>
         </div>
     </section>
+
+  
+    <section id="localização" class="aba">
+        <h2>Localização:</h2>
+      <div class="estante">
+        <div class="prateleira" id="prateleira1">Prateleira 1</div>
+        <div class="prateleira" id="prateleira2">Prateleira 2</div>
+        <div class="prateleira" id="prateleira3">Prateleira 3</div>
+        <div class="prateleira" id="prateleira4">Prateleira 4</div>
+    </div>
+
+        
+    </section>
 </body>
+</div>
 
 </html>
