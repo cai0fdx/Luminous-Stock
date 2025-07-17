@@ -9,9 +9,14 @@ function abrirAba(abaId) {
     }
 }
 
-// Adicionar o botão como parâmetro para disparar confete nele
 function adicionarPedido(item, botao) {
-    // Dispara confete no botão clicado (precisa ter a lib confetti.js carregada)
+    const quantidade = prompt(`Informe a quantidade desejada para "${item}":`, "1");
+
+    if (!quantidade || isNaN(quantidade) || quantidade <= 0) {
+        alert("Quantidade inválida.");
+        return;
+    }
+
     const rect = botao.getBoundingClientRect();
     confetti({
         particleCount: 100,
@@ -23,7 +28,7 @@ function adicionarPedido(item, botao) {
     });
 
     contadorPedidos++;
-    const pedido = { id: contadorPedidos, item: item };
+    const pedido = { id: contadorPedidos, item: item, quantidade: Number(quantidade) };
     pedidos.push(pedido);
     atualizarListaPedidos();
 }
@@ -39,6 +44,7 @@ function atualizarListaPedidos() {
         pedidoDiv.innerHTML = `
             <strong>Pedido #${pedido.id}</strong><br>
             Item: ${pedido.item}<br>
+            Quantidade: ${pedido.quantidade}<br>
             <button class="acao" onclick="aceitarPedido(${pedido.id})">Aceitar Pedido</button>
             <button class="recusar" onclick="recusarPedido(${pedido.id})">Recusar Pedido</button>
         `;
@@ -55,7 +61,7 @@ function aceitarPedido(idPedido) {
     fetch('../php/salvar_pedido.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'item=' + encodeURIComponent(pedido.item)
+        body: 'item=' + encodeURIComponent(pedido.item) + '&quantidade=' + encodeURIComponent(pedido.quantidade)
     })
     .then(response => response.text())
     .then(data => {
@@ -76,7 +82,6 @@ function aceitarPedido(idPedido) {
         }, 400);
     }
 
-    // Simulação do ESP32 - envia o comando depois
     fetch(`http://192.168.4.1/led?id=${idPedido}`).catch(() => {
         console.log('Falha na conexão com ESP32 (simulado)');
     });
