@@ -1,6 +1,18 @@
 let contadorPedidos = 0;
 let pedidos = [];
 
+// Mapeamento global item → localização (prateleira + lado)
+const mapeamentoLocalizacao = {
+    'Alicate Hidráulico': { prateleira: 'A1', lado: 'Frente' },
+    'Concetor para Jampe': { prateleira: 'B1', lado: 'Atrás' },
+    'Bastão Tira Pipa de Fenda': { prateleira: 'A2', lado: 'Frente' },
+    'Gancho Universal': { prateleira: 'B2', lado: 'Atrás' },
+    'Cobertura Circular': { prateleira: 'A1', lado: 'Atrás' },
+    'Luva Isolante': { prateleira: 'B1', lado: 'Frente' },
+    'Bastão podador': { prateleira: 'A2', lado: 'Atrás' },
+    'Locador de Pino': { prateleira: 'B2', lado: 'Frente' }
+};
+
 const menuBtn = document.querySelector('.menu-btn');
 const sidebar = document.querySelector('.sidebar');
 const mainContent = document.getElementById('mainContent');
@@ -10,7 +22,28 @@ menuBtn.addEventListener('click', () => {
   mainContent.classList.toggle('shifted'); // importante
 });
 
-
+function acenderBolinha(item) {
+    // Primeiro desliga todas as bolinhas
+    document.querySelectorAll('.bolinha').forEach(bola => {
+        bola.classList.remove('ativa');
+    });
+    const mapeamentoItens = {
+        'Alicate Hidráulico': 'bolinha1-superior',
+        'Concetor para Jampe': 'bolinha2-inferior', 
+        'Bastão Tira Pipa de Fenda': 'bolinha3-superior',
+        'Gancho Universal': 'bolinha4-inferior',
+        'Cobertura Circular': 'bolinha1-inferior',
+        'Luva Isolante': 'bolinha2-superior',
+        'Bastão podador': 'bolinha3-inferior',
+        'Locador de Pino': 'bolinha4-superior'
+    };
+    const bolinhaId = mapeamentoItens[item];
+    
+    if (bolinhaId) {
+        const bolinha = document.getElementById(bolinhaId);
+        if (bolinha) bolinha.classList.add('ativa');
+    }
+}
 
 function abrirAba(abaId) {
     document.querySelectorAll('.aba').forEach(el => el.classList.remove('ativa'));
@@ -68,11 +101,23 @@ function aceitarPedido(idPedido) {
     if (pedidoIndex === -1) return;
 
     const pedido = pedidos[pedidoIndex];
+    acenderBolinha(pedido.item);
+     const abaLocal = document.getElementById('abaLocal');
+    if (abaLocal) {
+      abaLocal.classList.add('brilhando');
+    }
+
+    // Pegando prateleira e lado do item para enviar junto ao PHP
+    const localizacaoInfo = mapeamentoLocalizacao[pedido.item] || { prateleira: '', lado: '' };
 
     fetch('../php/salvar_pedido.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'item=' + encodeURIComponent(pedido.item) + '&quantidade=' + encodeURIComponent(pedido.quantidade)
+        body: 
+          'item=' + encodeURIComponent(pedido.item) +
+          '&quantidade=' + encodeURIComponent(pedido.quantidade) +
+          '&prateleira=' + encodeURIComponent(localizacaoInfo.prateleira) +
+          '&lado=' + encodeURIComponent(localizacaoInfo.lado)
     })
     .then(response => response.text())
     .then(data => {
@@ -122,6 +167,4 @@ function filtrarProdutos() {
         const nome = produto.getAttribute('data-nome').toLowerCase();
         produto.style.display = nome.includes(filtro) ? '' : 'none';
     });
-
-
 }

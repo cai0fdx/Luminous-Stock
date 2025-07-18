@@ -1,6 +1,5 @@
-
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f5f5f5;
     margin: 0;
     padding: 0;
@@ -9,8 +8,9 @@ body {
 header {
     background: #1e88e5;
     color: white;
-    padding: 1rem;
+    padding: 1.5rem;
     text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -38,19 +38,22 @@ nav button:focus {
 }
 
 .aba {
-    display: none;
-    padding: 2rem;
     opacity: 0;
-    transition: opacity 0.4s ease;
-    /* Para evitar layout quebrado, podemos usar visibility também */
+    transform: translateX(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+    top: 0;
+    width: 100%;
     visibility: hidden;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
 .ativa {
-    display: block;
     opacity: 1;
+    transform: translateX(0);
     visibility: visible;
-    transition: opacity 0.4s ease;
+    position: relative;
 }
 
 .pedido {
@@ -58,15 +61,14 @@ nav button:focus {
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      transition: opacity 1.2s ease, transform 1.2s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .pedido.desaparecer {
     opacity: 0;
     transform: translateX(-20px);
 }
-
 
 button.acao {
     margin-top: 0.5rem;
@@ -84,7 +86,6 @@ button.acao:hover {
     transform: scale(1.05);
 }
 
-
 button.recusar {
     background-color: #43a047; 
     color: white;
@@ -100,24 +101,23 @@ button.recusar:focus {
     background-color: #e53935; /* Vermelho no hover */
     transform: scale(1.05);
     outline: none;
-     box-shadow: 0 4px 8px rgba(250, 2, 2, 0.6);
+    box-shadow: 0 4px 8px rgba(250, 2, 2, 0.6);
 }
 
 .produtos-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     justify-content: center;
     max-width: 800px;
     margin: 0 auto;
-    
 }
 
 .produto {
     background: white;
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
@@ -168,6 +168,7 @@ button.recusar:focus {
     background-color: #fff;
     outline: none;
 }
+
 .menu-btn {
     position: fixed;
     top: 20px;
@@ -226,18 +227,105 @@ button.recusar:focus {
     color: #90caf9;
     transform: translateX(5px); 
 }
+
 .main-content {
-  transition: margin-left 0.4s ease;
-  margin-left: 0; 
+    transition: margin-left 0.4s ease;
+    margin-left: 0; 
+    position: relative;
 }
 
 .main-content.shifted {
-  margin-left: 200px; 
+    margin-left: 200px; 
 }
+
 .sidebar button i {
     margin-right: 8px;
     min-width: 20px; /* para os ícones não mexerem a posição do texto */
-    text-align: center;
 }
 
+/* As partes das prateleiras e bolinhas permanecem inalteradas */
+.prateleira {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* 2 colunas */
+    grid-template-rows: repeat(2, 120px);  /* Altura aumentada para 120px */
+    gap: 60px 80px;  /* Aumento significativo: 60px (vertical) e 80px (horizontal) */
+    justify-items: center;
+    align-items: center;
+    background: #f0f4f8;
+    border-radius: 20px;  /* Bordas mais arredondadas */
+    box-shadow: 
+        0 6px 18px rgba(0, 0, 0, 0.1),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);  /* Sombra interna para profundidade */
+    padding: 2.5rem;  /* Padding generoso */
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+    margin: 2rem auto;  /* Margem externa para centralização */
+    max-width: 800px;   /* Largura máxima controlada */
+}
 
+.prateleira > div {
+    background: white;
+    border-radius: 14px;  /* Bordas mais arredondadas */
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.12),
+        0 2px 4px rgba(0, 0, 0, 0.05);  /* Multiplas sombras para realismo */
+    width: 160px;      /* Largura aumentada */
+    height: 80px;      /* Altura aumentada */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+    padding: 0.8rem;   /* Espaço interno adicional */
+}
+
+.bolinha {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    border-radius: 50%;
+    opacity: 0; /* Começam invisíveis */
+    transition: opacity 0.4s, box-shadow 0.4s;
+    z-index: 2;
+}
+
+.bolinha-superior {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bolinha-inferior {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bolinha.ativa {
+    background-color: #ffcc00;
+    opacity: 1;
+    box-shadow: 0 0 12px 6px #ffcc00;
+}
+.prateleira-box {
+    position: relative;
+}
+.brilhando {
+  animation: brilhoPulse 1.5s infinite alternate;
+  box-shadow: 0 0 8px 3px yellow;
+}
+
+@keyframes brilhoPulse {
+  from {
+    box-shadow: 0 0 5px 2px yellow;
+  }
+  to {
+    box-shadow: 0 0 15px 6px orange;
+  }
+}
