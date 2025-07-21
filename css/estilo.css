@@ -1,9 +1,10 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f5f5f5;
     margin: 0;
     padding: 0;
 }
+
 
 header {
     background: #1e88e5;
@@ -240,47 +241,45 @@ button.recusar:focus {
 
 .sidebar button i {
     margin-right: 8px;
-    min-width: 20px; /* para os ícones não mexerem a posição do texto */
+    min-width: 20px; 
 }
 
-/* As partes das prateleiras e bolinhas permanecem inalteradas */
+
 .prateleira {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);  /* 2 colunas */
-    grid-template-rows: repeat(2, 120px);  /* Altura aumentada para 120px */
-    gap: 60px 80px;  /* Aumento significativo: 60px (vertical) e 80px (horizontal) */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 120px);
+    gap: 60px 80px;  
     justify-items: center;
     align-items: center;
     background: #f0f4f8;
-    border-radius: 20px;  /* Bordas mais arredondadas */
+    border-radius: 20px;  
     box-shadow: 
         0 6px 18px rgba(0, 0, 0, 0.1),
-        inset 0 1px 2px rgba(255, 255, 255, 0.8);  /* Sombra interna para profundidade */
-    padding: 2.5rem;  /* Padding generoso */
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);  
     color: #333;
     font-weight: 600;
     font-size: 1.1rem;
     user-select: none;
-    margin: 2rem auto;  /* Margem externa para centralização */
-    max-width: 800px;   /* Largura máxima controlada */
+    margin: 2rem auto; 
+    max-width: 800px;  
 }
-
 .prateleira > div {
     background: white;
-    border-radius: 14px;  /* Bordas mais arredondadas */
+    border-radius: 0%;  
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.12),
-        0 2px 4px rgba(0, 0, 0, 0.05);  /* Multiplas sombras para realismo */
-    width: 160px;      /* Largura aumentada */
-    height: 80px;      /* Altura aumentada */
+        0 2px 4px rgba(0, 0, 0, 0.05);  
+    width: 180px;     
+    height: 30px;     
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
     cursor: pointer;
     border: 1px solid #e8e8e8;
-    padding: 0.8rem;   /* Espaço interno adicional */
+    padding: 0.8rem;   
 }
 
 .bolinha {
@@ -289,7 +288,7 @@ button.recusar:focus {
     height: 24px;
     background-color: #333;
     border-radius: 50%;
-    opacity: 0; /* Começam invisíveis */
+    opacity: 0; 
     transition: opacity 0.4s, box-shadow 0.4s;
     z-index: 2;
 }
@@ -316,16 +315,18 @@ button.recusar:focus {
 .prateleira-box {
     position: relative;
 }
-.brilhando {
-  animation: brilhoPulse 1.5s infinite alternate;
-  box-shadow: 0 0 8px 3px yellow;
+
+.sidebar button.destacar {
+    animation: destaque 3s infinite alternate;
 }
 
-@keyframes brilhoPulse {
-  from {
-    box-shadow: 0 0 5px 2px yellow;
-  }
-  to {
-    box-shadow: 0 0 15px 6px orange;
-  }
+@keyframes destaque {
+    0% {
+        background-color: #007bff;
+        color: white;
+    }
+    100% {
+        background-color: #0056b3;
+        color: white;
+    }
 }
