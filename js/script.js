@@ -102,10 +102,15 @@ function aceitarPedido(idPedido) {
 
     const pedido = pedidos[pedidoIndex];
     acenderBolinha(pedido.item);
-     const abaLocal = document.getElementById('abaLocal');
-    if (abaLocal) {
-      abaLocal.classList.add('brilhando');
-    }
+    
+const botaoLocal = document.querySelector('button[onclick="abrirAba(\'localização\')"]');
+botaoLocal.classList.add('destacar');
+
+setTimeout(() => {
+    botaoLocal.classList.remove('destacar');
+}, 10000);
+
+    
 
     // Pegando prateleira e lado do item para enviar junto ao PHP
     const localizacaoInfo = mapeamentoLocalizacao[pedido.item] || { prateleira: '', lado: '' };
@@ -119,13 +124,8 @@ function aceitarPedido(idPedido) {
           '&prateleira=' + encodeURIComponent(localizacaoInfo.prateleira) +
           '&lado=' + encodeURIComponent(localizacaoInfo.lado)
     })
-    .then(response => response.text())
-    .then(data => {
-        alert('Pedido aceito e salvo no banco: ' + data);
-    })
-    .catch(error => {
-        alert('Erro ao salvar pedido: ' + error);
-    });
+  
+  
 
     const listaDiv = document.getElementById('listaPedidos');
     const pedidoElement = [...listaDiv.children].find(el => Number(el.dataset.id) === idPedido);
