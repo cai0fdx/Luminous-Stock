@@ -1,6 +1,46 @@
 let contadorPedidos = 0;
 let pedidos = [];
 
+const form = document.getElementById("loginForm");
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const usuario = document.getElementById("nome_usuario").value;
+    const senha = document.getElementById("senha").value;
+
+    fetch('../php/validar_login.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `nome_usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}`
+    });
+  });
+}
+function logout() {
+  fetch('../php/logout.php')  // chama o script PHP que destrói a sessão
+    .then(() => {
+      window.location.href = '../html/index.html'; // redireciona para login
+    });
+}
+window.onload = function () {
+  fetch('../php/usuario_tipo.php')
+    .then(res => res.json())
+    .then(data => {
+      console.log('Tipo de usuário:', data.tipo);
+      if (data.tipo === 'funcionario') {
+        const btnFuncionario = document.querySelector("button[onclick=\"abrirAba('funcionario')\"]");
+        const btnLocalizacao = document.querySelector("button[onclick=\"abrirAba('localização')\"]");
+
+        if (btnFuncionario) btnFuncionario.style.display ='none';
+        if (btnLocalizacao) btnLocalizacao.style.display = 'none';
+      } 
+      
+    })
+    .catch(err => console.error('Erro ao pegar tipo de usuário:', err));
+};
+
+
+
 // Mapeamento global item → localização (prateleira + lado)
 const mapeamentoLocalizacao = {
     'Alicate Hidráulico': { prateleira: 'A1', lado: 'Frente' },
