@@ -1,0 +1,24 @@
+CREATE database almoxerifado;
+use almoxerifado;
+
+CREATE TABLE info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    item VARCHAR(255),
+    quantidade INT,
+    prateleira VARCHAR(50),
+    lado VARCHAR(50),
+    status VARCHAR(20) DEFAULT 'pendente'
+);
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_usuario VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    tipo VARCHAR(20) NOT NULL DEFAULT 'funcionario'
+);
+
+
+INSERT INTO usuarios (nome_usuario, senha, tipo)
+VALUES ('admin', '1234', 'admin');
+
+INSERT INTO usuarios (nome_usuario, senha, tipo)
+VALUES ('joao', '1234');
